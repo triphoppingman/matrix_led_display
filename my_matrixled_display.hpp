@@ -12,6 +12,7 @@ enum StripMode {
   STRIP_MODE_COL_BY_COL = 1,
   STRIP_MODE_ZIG_ZAG_ROWS = 2,
   STRIP_MODE_ZIG_ZAG_COLS = 3,
+  STRIP_MODE_CJMCU_8X8_SINGLE_ROW=4,
 };
 
 class MatrixLedDisplay : public display::DisplayBuffer, public Component {
@@ -104,6 +105,9 @@ class MatrixLedDisplay : public display::DisplayBuffer, public Component {
       case STRIP_MODE_ZIG_ZAG_COLS:
         pos = (x * this->height_) + (x % 2 == 0 ? y : this->height_ - y - 1);
         break;
+      case STRIP_MODE_CJMCU_8X8_SINGLE_ROW:
+        pos = (int)(x/8)*64+ (x % 8) + y * 8;
+        break; 
     }
 
     return pos;
